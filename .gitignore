@@ -1,0 +1,10 @@
+# build artifacts
+stor
+*.o
+
+# runtime state
+enc.db
+
+# editor / OS noise
+*.swp
+.DS_Store
