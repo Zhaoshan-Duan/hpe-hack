@@ -58,8 +58,10 @@ docker run --rm bibifi bash -c 'cd build && make && execstack -q stor'
 docker run --rm -v "$PWD":/src bibifi bash -c 'cd build && make'
 ```
 
-The Dockerfile repoints apt to `old-releases.ubuntu.com` first (18.04 is EOL)
-and pre-stages `libsodium`/`libssl` i386 packages for the crypto pass.
+18.04 is EOL: `archive.ubuntu.com` still served bionic at build time, so the
+Dockerfile uses it as-is and pre-stages `libsodium`/`libssl` i386 packages for
+the crypto pass. If apt later 404s, uncomment the `old-releases.ubuntu.com`
+repoint at the top of the Dockerfile.
 
 ## Usage
 
