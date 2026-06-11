@@ -1,0 +1,12 @@
+Bug: create rejects a 257-character filename that the spec permits.
+
+TPT defines MAX_FILENAME_LEN=256 and checks strlen(file) > MAX_FILENAME_LEN.
+A 257-char filename has strlen=257 > 256, so the binary prints "invalid" and
+exits 255.
+
+The oracle (reference implementation) accepts filenames of arbitrary length
+(confirmed: oracle exits 0 for 10000-char filenames).
+
+Trigger: register alice then ./stor -u alice -f "A"*257 create
+Expected (oracle): exit 0 on both commands
+Actual (bug): second command stdout="invalid", exit 255

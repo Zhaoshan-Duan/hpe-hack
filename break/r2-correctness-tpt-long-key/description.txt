@@ -1,0 +1,12 @@
+Bug: register rejects a 129-character key that the spec permits.
+
+TPT defines MAX_KEY_LEN=128 and checks strlen(key) > MAX_KEY_LEN.
+A 129-char key has strlen=129 > 128, so the binary prints "invalid" and
+exits 255.
+
+The oracle (reference implementation) accepts keys of arbitrary length
+(confirmed: oracle exits 0 for 10000-char keys).
+
+Trigger: ./stor -u alice -k "A"*129 register
+Expected (oracle): exit 0
+Actual (bug): stdout="invalid", exit 255
