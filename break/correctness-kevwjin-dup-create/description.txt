@@ -1,0 +1,8 @@
+Bug: creating a file that already exists exits 0 instead of 255.
+
+Spec: duplicate file must print 'invalid' and exit 255.
+Root cause: add_file() returns 1 when file exists; !add_file() is false → skips goto-invalid → exits 0
+
+Trigger: register, create file 'f', create file 'f' a second time.
+Expected (oracle): third command exits 255.
+Actual (bug): exits 0.

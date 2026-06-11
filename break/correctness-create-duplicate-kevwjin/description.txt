@@ -1,0 +1,10 @@
+Bug: creating a file that already exists returns exit 0 instead of "invalid"/255.
+
+Spec: duplicate file creation must print "invalid" and exit 255.
+
+Root cause: add_file() returns 1 (success) when find_file() finds the file already
+exists, then save_db() is called on the unchanged DB, and the command exits 0.
+
+Trigger: register a user, create a file, then create the same file again.
+Expected: third command exits 255 and prints "invalid".
+Observed: third command exits 0 with no output (silent success).

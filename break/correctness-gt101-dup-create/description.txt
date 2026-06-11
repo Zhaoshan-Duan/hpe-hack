@@ -1,0 +1,8 @@
+Bug: creating a file that already exists exits 0 instead of 255.
+
+Spec: duplicate file must print 'invalid' and exit 255.
+Root cause: stor.c:412 — `if (find_file(u, fn)) return 0` (idempotent no-op)
+
+Trigger: register, create file 'f', create file 'f' a second time.
+Expected (oracle): third command exits 255.
+Actual (bug): exits 0.

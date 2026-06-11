@@ -1,0 +1,10 @@
+Bug: reading a file that was created but never written returns invalid/255
+instead of exit 0 with empty output.
+
+Spec: 'create' makes an empty file.  A subsequent 'read' with the correct key
+must succeed (exit 0) and produce no output (0 bytes).
+Root cause: stor.c:824 — checks has_content==0 and calls fail() instead of returning empty output
+
+Trigger: register, create file, read file without ever writing.
+Expected (oracle): exit 0, empty stdout.
+Actual (bug): exits 255 with stdout 'invalid'.

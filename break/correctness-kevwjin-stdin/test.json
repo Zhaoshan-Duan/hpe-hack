@@ -1,0 +1,66 @@
+{
+  "target_team": 106,
+  "type": "correctness",
+  "commands": [
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "f",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-k",
+        "pass",
+        "-f",
+        "f",
+        "write"
+      ],
+      "stdin": "hello"
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-k",
+        "pass",
+        "-f",
+        "f",
+        "read"
+      ]
+    }
+  ],
+  "expected": [
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0,
+      "stdout": "hello"
+    }
+  ]
+}

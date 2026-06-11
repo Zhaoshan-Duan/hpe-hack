@@ -1,0 +1,13 @@
+Integrity break via account re-registration.
+
+This implementation allows re-registering an existing user (same bug as the
+correctness-reregister break).  By re-registering user1 with a known password
+we corrupt the user1/file1 record so that when the grader re-reads file1 with
+the real key the content differs from the original integrity target.
+
+Detail: TPT re-register updates user1's credentials. file1 content remains encrypted under the original key which is now inaccessible, making it unreadable/different.
+
+Steps:
+1. Register user1 with password 'attack' — overwrites credentials.
+2. Grader re-reads user1/file1 with original real key — result differs from
+   original content (either empty output or decryption failure).

@@ -1,0 +1,9 @@
+Bug: 'create' succeeds for a username that was never registered.
+
+Spec: create requires the user to already exist.  This implementation calls
+add_file() without first verifying the user record exists, so a file can be
+created for any arbitrary (and nonexistent) username.
+
+Trigger: create a file for user 'ghost' without ever registering ghost.
+Expected (oracle): exit 255, stdout 'invalid'.
+Actual (bug): exit 0.

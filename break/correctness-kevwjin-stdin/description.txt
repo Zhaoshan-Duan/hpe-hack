@@ -1,0 +1,11 @@
+Bug: 'write' silently ignores stdin when no -i flag and no inline text are
+given, storing empty content instead of the data piped in.
+
+Spec (input precedence): -i file > inline text > stdin.  When the first two
+are absent, stdin must be consumed and its content stored.
+Root cause: No stdin fallback branch — plain=NULL/ptlen=0 when neither -i nor inline text given
+
+Trigger: register, create file, write with stdin 'hello' (no -i, no inline
+text), then read.  Read should return 'hello'.
+Expected (oracle): fourth command exits 0 with stdout 'hello'.
+Actual (bug): fourth command exits 0 with empty stdout.

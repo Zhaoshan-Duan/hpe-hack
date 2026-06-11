@@ -1,0 +1,16 @@
+Bug: creating a file that already exists returns exit 0 instead of exit 255.
+
+Spec: "On any error, or an incomplete/contradictory argument combination, stor must
+print invalid to stdout and exit with code 255." Creating a file that already
+exists is an error — the resource already exists.
+
+The 0xwizards implementation silently no-ops on duplicate create (returns 0):
+  if (find_file(db, user, ulen, fname, flen))
+    return 0;  /* already exists: no-op */
+
+The reference oracle should return exit 255 with stdout "invalid" on the second
+create, because the file already exists and re-creating it is a contradictory
+operation. The target returns exit 0 with empty stdout, which differs.
+
+Trigger: register user alice, create file notes, then create notes again.
+Third command: oracle exits 255 ("invalid"), target exits 0 (empty stdout).
