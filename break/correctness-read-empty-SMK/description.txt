@@ -1,0 +1,8 @@
+Bug: reading a created-but-never-written file produces wrong output.
+
+Spec: create makes an empty file. A subsequent read with the correct key must
+succeed (exit 0) and output nothing (0 bytes). Some implementations may print
+"invalid", exit non-zero, or output garbage bytes.
+
+Trigger: register, create file, read without ever writing.
+Expected: exit 0, empty stdout.

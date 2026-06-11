@@ -1,0 +1,17 @@
+{
+  "target_team": 112,
+  "type": "crash",
+  "commands": [
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "x",
+        "-k",
+        "k",
+        "register"
+      ]
+    }
+  ],
+  "_TODO": "Replace stub commands with real exploit before submitting."
+}

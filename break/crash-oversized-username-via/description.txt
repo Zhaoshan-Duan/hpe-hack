@@ -1,0 +1,10 @@
+Bug: fixed-size stack buffer for username overflowed by a 10000-char -u argument.
+
+Many implementations copy the username from argv into a stack-allocated buffer
+(e.g. char user[256]; strcpy(user, argv[...])). With -fno-stack-protector the
+saved return address is overwritten, causing a segfault or worse.
+
+Trigger: single register command with a 10000-char username.
+Expected (spec): exit 255 / "invalid" (implementation should reject or safely
+  truncate, not crash).
+Observed (bug): SIGSEGV / SIGABRT.

@@ -1,0 +1,11 @@
+Control-flow hijack to reach win().
+
+Build flags: -m32 -fno-stack-protector + executable stack.
+A stack buffer overflow in a CLI argument or stdin path lets us
+overwrite the saved return address and redirect to win().
+Win condition: 'Arbitrary access achieved!' appears in stdout.
+
+TODO: identify the vulnerable buffer in target binary,
+calculate offset to saved return address,
+locate win() address in the prebuilt binary,
+craft payload and embed in args or stdin.

@@ -1,0 +1,10 @@
+Bug: fixed-size stack buffer for the -k (key/password) argument overflowed.
+
+Same class as oversized-username but targets the key path, which may pass
+through a different stack frame (e.g. a KDF wrapper that copies the password
+into a local buffer before hashing).
+
+Trigger: register with a 10000-char key.
+Expected (spec): graceful exit 255 or successful registration (key is just
+  passed to Argon2id as a byte string -- any length should be fine).
+Observed (bug): SIGSEGV / SIGABRT.

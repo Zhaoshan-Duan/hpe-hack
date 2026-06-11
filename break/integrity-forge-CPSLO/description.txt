@@ -1,0 +1,9 @@
+Integrity attack against user1/file1.
+
+Goal: modify user1/file1 content without knowing the key so that
+re-reading it with the real key returns different content.
+
+TODO: analyse target's enc.db format for lack of authentication
+(e.g., unauthenticated CBC, missing MAC, plaintext storage).
+Commands must leave the store in a state where the grader's
+re-read of user1/file1 with the real key returns changed content.
