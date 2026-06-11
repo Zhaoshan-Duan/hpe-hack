@@ -1,0 +1,9 @@
+Bug: creating a file with a name longer than MAX_FILE_LEN (128) exits 255 instead of 0.
+
+Spec/oracle: the reference implementation accepts arbitrarily long -f values and exits 0.
+Root cause: stor.c:158 — `strlen(file) >= MAX_FILE_LEN` rejects filenames >= 128 chars.
+  The oracle imposes no such cap.
+
+Trigger: register alice, then create a file with a 10000-char name.
+Expected (oracle): both commands exit 0.
+Actual (bug): create command exits 255 with stdout "invalid".

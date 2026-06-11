@@ -1,0 +1,12 @@
+Bug: stor rejects a 4097-character username with exit 255 instead of accepting it.
+
+stor.c sets MAX_NAME = 4096 and checks:
+  if (ulen == 0 || ulen > MAX_NAME) die_invalid();
+
+The oracle (reference implementation) places no upper bound on username length and
+accepts any-length -u argument with exit 0. 0xwizards rejects usernames longer than
+4096 bytes with exit 255 and stdout "invalid".
+
+Trigger: register with a 4097-character username.
+Oracle: exit 0 (accepts it).
+Target: exit 255, stdout "invalid".

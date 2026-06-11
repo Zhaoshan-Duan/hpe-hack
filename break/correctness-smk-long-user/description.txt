@@ -1,0 +1,9 @@
+Bug: registering with a username longer than MAX_USER_LEN (128) exits 255 instead of 0.
+
+Spec/oracle: the reference implementation accepts arbitrarily long -u values and exits 0.
+Root cause: stor.c:145 — `strlen(user) >= MAX_USER_LEN` rejects usernames >= 128 chars.
+  The oracle imposes no such cap.
+
+Trigger: register with a 10000-char username.
+Expected (oracle): exits 0.
+Actual (bug): exits 255 with stdout "invalid".

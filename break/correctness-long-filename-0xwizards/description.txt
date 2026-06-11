@@ -1,0 +1,11 @@
+Bug: stor rejects a 4097-character filename with exit 255 instead of accepting it.
+
+stor.c sets MAX_NAME = 4096 and checks:
+  if (flen == 0 || flen > MAX_NAME) die_invalid();
+
+The oracle places no upper bound on filename length and accepts any-length -f argument
+with exit 0. 0xwizards rejects filenames longer than 4096 bytes with exit 255.
+
+Trigger: register alice, then create a file with a 4097-character filename.
+Oracle: both commands exit 0.
+Target: second command exits 255, stdout "invalid".
