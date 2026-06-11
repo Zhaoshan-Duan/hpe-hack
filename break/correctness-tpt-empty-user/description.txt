@@ -1,0 +1,12 @@
+Bug: empty string username is accepted instead of being rejected with exit 255.
+
+Spec: -u requires a non-empty username. On any invalid argument, stor must
+print 'invalid' and exit 255.
+
+Root cause: stor.c only checks strlen(user) > MAX_USERNAME_LEN (64), not
+strlen(user) == 0, so an empty string passes validation and a user with an
+empty name is registered (exit 0, no output).
+
+Trigger: register with -u '' (empty string).
+Expected (oracle): exit 255, stdout 'invalid'.
+Actual (bug): exit 0, stdout ''.
