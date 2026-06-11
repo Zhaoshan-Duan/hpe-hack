@@ -1,0 +1,9 @@
+Bug: create with a 10000-character filename exits 255 instead of 0.
+
+Spec/oracle: filenames of any length must be accepted (exit 0).
+Root cause: stor.c:561 — op_create() rejects strlen(filename) > MAX_FILENAME (63).
+Oracle has no such cap.
+
+Trigger: register "alice" then create a file with a 10000-char filename.
+Expected (oracle): exit 0.
+Actual (bug): exit 255.

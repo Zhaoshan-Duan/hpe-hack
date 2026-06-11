@@ -1,0 +1,9 @@
+Bug: register with a 10000-character username exits 255 instead of 0.
+
+Spec/oracle: usernames of any length must be accepted (exit 0).
+Root cause: stor.c:518 — op_register() rejects strlen(username) > MAX_USERNAME (63).
+Oracle has no such cap.
+
+Trigger: register with a 10000-char username and key "p".
+Expected (oracle): exit 0.
+Actual (bug): exit 255.
