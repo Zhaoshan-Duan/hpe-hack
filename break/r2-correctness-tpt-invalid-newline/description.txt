@@ -1,0 +1,18 @@
+Bug: error output is missing the required trailing newline.
+
+TPT's invalid() function uses printf("invalid") without a newline:
+    static int invalid(void) {
+        printf("invalid");
+        return 255;
+    }
+
+The spec says stor must "print invalid to stdout and exit with code 255."
+The reference implementation prints "invalid\n" (with trailing newline, as
+is standard for line-oriented output). TPT prints 7 bytes ("invalid") where
+the spec requires 8 bytes ("invalid\n").
+
+Trigger: register alice with key "pass", then attempt to read a file with
+the wrong key "wrongpass".
+
+Expected (oracle): exit 255, stdout = "invalid\n"
+Actual (bug):      exit 255, stdout = "invalid"  (no trailing newline)
