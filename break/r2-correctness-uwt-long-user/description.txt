@@ -1,0 +1,11 @@
+Bug: register rejects a 10000-character username that the spec permits.
+
+UW_Tacoma enforces a maximum username length cap. Passing a 10000-character
+username to the register command causes the binary to exit 255.
+
+The oracle (reference implementation) accepts usernames of arbitrary length
+(confirmed: oracle exits 0 for 10000-char usernames).
+
+Trigger: ./stor -u "A"*10000 -k p register
+Expected (oracle): exit 0
+Actual (bug): exit 255

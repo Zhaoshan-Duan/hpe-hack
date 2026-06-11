@@ -1,0 +1,12 @@
+Bug: create rejects a 10000-character filename that the spec permits.
+
+UW_Tacoma enforces a maximum filename length cap. After registering a user,
+passing a 10000-character filename to the create command causes the binary
+to exit 255.
+
+The oracle (reference implementation) accepts filenames of arbitrary length
+(confirmed: oracle exits 0 for 10000-char filenames).
+
+Trigger: register alice then ./stor -u alice -f "A"*10000 create
+Expected (oracle): exit 0 on both commands
+Actual (bug): second command exits 255
