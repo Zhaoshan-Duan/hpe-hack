@@ -1,9 +1,26 @@
-Integrity attack against user1/file1.
+Integrity attack against user1/file1 in Husker_Bots (team 115).
 
-Goal: modify user1/file1 content without knowing the key so that
-re-reading it with the real key returns different content.
+ATTACK: read -o enc.db with a freshly-created (enc_len=0) file truncates enc.db.
 
-TODO: analyse target's enc.db format for lack of authentication
-(e.g., unauthenticated CBC, missing MAC, plaintext storage).
-Commands must leave the store in a state where the grader's
-re-read of user1/file1 with the real key returns changed content.
+Root cause: stor.c read action, when enc_len==0:
+    if (f->enc_len == 0 || f->enc_content == NULL) {
+        if (outfile) {
+            FILE *fp = fopen(outfile, "wb");  // truncates enc.db!
+            if (!fp) { ... return invalid(); }
+            fclose(fp);
+        }
+        return 0;
+    }
+fopen with "wb" truncates the file. fclose without writing leaves it at 0 bytes.
+
+Attack chain:
+1. Register attacker account.
+2. Create file "p" for attacker -- enc_len stays 0 (no write done).
+3. Read "p" with -o enc.db: fopen("enc.db", "wb") truncates enc.db to 0 bytes.
+
+After this chain, any subsequent stor command calls db_load, which sees
+fsz=0 < minimum header size (44 bytes), returns 0, and main() returns 255.
+Grader reads user1/file1 with the real key, gets exit 255 instead of the
+original content -- integrity break.
+
+The same truncation pattern was confirmed on kevwjin (team 106).

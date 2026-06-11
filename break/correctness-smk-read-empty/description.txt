@@ -1,0 +1,10 @@
+Bug: reading a created-but-never-written file exits 255 instead of 0 with empty stdout.
+
+Spec: reading an empty file must print nothing and exit 0.
+Root cause: stor.c:424 — EVP_DecryptFinal_ex fails GCM tag verification because the
+  stored tag is all-zeros (from calloc/memset in create) and no IV or ciphertext was
+  ever written, so AES-GCM authentication fails, causing invalid() to be returned.
+
+Trigger: register, create file 'f', read file 'f' (without ever writing).
+Expected (oracle): third command exits 0 with empty stdout.
+Actual (bug): exits 255 with stdout "invalid".

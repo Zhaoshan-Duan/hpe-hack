@@ -1,0 +1,15 @@
+Bug: write command ignores stdin and writes empty content instead.
+
+Spec: write input precedence is -i file > inline text > stdin. When no -i or
+inline text is supplied, stdin must be read and used as the file content.
+
+Root cause: the write action has no stdin fallback branch:
+  if (infile) { read_whole_file(...) }
+  else if (content) { use argv content }
+  // no else for stdin
+When neither infile nor content is present, plain = NULL and plain_len = 0.
+Stdin is silently ignored; an empty-content file is written instead.
+
+Trigger: register user, create file, write via stdin only, then read.
+Expected: read outputs the stdin content ("hello from stdin").
+Observed: read outputs nothing (empty file was stored).

@@ -1,5 +1,19 @@
 Integrity attack against user1/file1 in CPSLO (team 108).
 
+ATTACK: read -o enc.db overwrites the database file with decrypted content.
+1. Register attacker user + create + write empty file (enc.db untouched so far,
+   except attacker appended).
+2. read -o enc.db: decrypted content of "p" (empty, 0 bytes) is written to
+   enc.db, replacing it entirely. enc.db is now 0 bytes.
+3. Grader reads file1 with original key -> db_load reads 0-byte file -> fread
+   fails -> ERROR_OUT -> stdout="invalid", exit 255 != INTEGRITY_FLAG.
+
+Confirmed live: enc.db becomes 0 bytes, subsequent ./stor exits 255.
+
+ORIGINAL integrity attack analysis below (for reference):
+
+Integrity attack against user1/file1 in CPSLO (team 108).
+
 CPSLO uses AES-256-GCM (OpenSSL EVP) with:
   - Key = PBKDF2-HMAC-SHA256(TEAM_FLAG, user_salt, 10000 iters, 32 bytes)
   - AAD = username || filename (no separator -- design flaw, see analysis)

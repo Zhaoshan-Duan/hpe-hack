@@ -1,0 +1,8 @@
+Bug: write command ignores stdin; subsequent read returns empty string instead of written content.
+
+Spec: write must read content from stdin and persist it; read must return that content.
+Root cause: stor.c:616 — content is taken from argv[optind+1] (command-line arg), never from stdin. do_write falls through to the empty-string branch when no argv content is given, so stdin bytes are discarded.
+
+Trigger: register, create file 'f', write with stdin="hello", read file 'f'.
+Expected (oracle): read exits 0 with stdout "hello".
+Actual (bug): read exits 0 with stdout "" (nothing stored).

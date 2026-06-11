@@ -1,9 +1,17 @@
-Integrity attack against user1/file1.
+Integrity attack: destroy enc.db using read -o enc.db.
 
-Goal: modify user1/file1 content without knowing the key so that
-re-reading it with the real key returns different content.
+The read action writes decrypted file content to the path given by -o. When a
+file was written with empty content, its decrypted plaintext is 0 bytes. Using
+-o enc.db on such a file therefore truncates enc.db to 0 bytes.
 
-TODO: analyse target's enc.db format for lack of authentication
-(e.g., unauthenticated CBC, missing MAC, plaintext storage).
-Commands must leave the store in a state where the grader's
-re-read of user1/file1 with the real key returns changed content.
+Attack chain (all commands exit 0):
+  1. Register a fresh attacker account.
+  2. Create an empty file for the attacker.
+  3. Write empty content to it (no -i and no inline text writes 0-byte plaintext,
+     stored as a 264-byte cipher via encrypt_file).
+  4. Read that file with -o enc.db: output_bytes("enc.db", NULL, 0) opens enc.db
+     for write ("wb"), writes 0 bytes, closes it - enc.db is now 0 bytes.
+
+After this chain, the grader's read of user1/file1 with the real key calls
+load_db, which tries to read the 8-byte magic from the empty file, fails, and
+returns invalid/255 instead of the expected INTEGRITY_FLAG.

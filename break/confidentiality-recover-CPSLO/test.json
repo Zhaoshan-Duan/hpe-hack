@@ -4,9 +4,8 @@
   "commands": [
     {
       "program": "stor",
-      "args": ["-u", "user2", "-k", "TEAM_FLAG_HERE", "-f", "file2", "read"],
-      "output": "CONFIDENTIALITY_FLAG_HERE"
+      "args": ["-u", "user2", "-f", "file2", "read"],
+      "output": "f954f202f6ec0f0a1bdd082f95d104ebe06e742ab9813a1f"
     }
-  ],
-  "_TODO": "Replace TEAM_FLAG_HERE with cracked TEAM_FLAG and CONFIDENTIALITY_FLAG_HERE with the decrypted 48-byte flag. Crack via: hashcat -m 12000 'sha256:10000:W7UwgaFRPayl1V06EYxLsQ==:4yXubkBEibj35SRO1htp/hFVkmAAxcnouzYU0au6d5M=' wordlist.txt. Decrypt with script in description.txt."
+  ]
 }

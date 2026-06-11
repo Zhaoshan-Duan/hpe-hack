@@ -1,14 +1,14 @@
 {
-  "target_team": 106,
-  "type": "integrity",
+  "target_team": 101,
+  "type": "correctness",
   "commands": [
     {
       "program": "stor",
       "args": [
         "-u",
-        "attack",
+        "alice",
         "-k",
-        "x",
+        "pass",
         "register"
       ]
     },
@@ -16,9 +16,9 @@
       "program": "stor",
       "args": [
         "-u",
-        "attack",
+        "alice",
         "-f",
-        "p",
+        "f",
         "create"
       ]
     },
@@ -26,27 +26,41 @@
       "program": "stor",
       "args": [
         "-u",
-        "attack",
+        "alice",
         "-k",
-        "x",
+        "pass",
         "-f",
-        "p",
+        "f",
         "write"
-      ]
+      ],
+      "stdin": "hello"
     },
     {
       "program": "stor",
       "args": [
         "-u",
-        "attack",
+        "alice",
         "-k",
-        "x",
+        "pass",
         "-f",
-        "p",
-        "-o",
-        "enc.db",
+        "f",
         "read"
       ]
+    }
+  ],
+  "expected": [
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0,
+      "stdout": "hello"
     }
   ]
 }

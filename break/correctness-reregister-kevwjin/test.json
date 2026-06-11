@@ -22,5 +22,14 @@
         "register"
       ]
     }
+  ],
+  "expected": [
+    {
+      "exit": 0
+    },
+    {
+      "exit": 255,
+      "stdout": "invalid\n"
+    }
   ]
 }

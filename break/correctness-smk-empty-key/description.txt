@@ -1,0 +1,10 @@
+Bug: registering with an empty key string ("") exits 0 instead of 255.
+
+Spec: empty key must print 'invalid' and exit 255.
+Root cause: stor.c:157 — validation only checks `!key` (NULL pointer), not empty string.
+  An empty-string key passes the NULL check, and PBKDF2 happily derives a key from
+  a zero-length password, so registration succeeds silently.
+
+Trigger: register with -k "" (empty key argument).
+Expected (oracle): exits 255.
+Actual (bug): exits 0 and creates a user record with an empty-string password.

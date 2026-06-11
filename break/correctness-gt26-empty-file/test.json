@@ -1,0 +1,4 @@
+{"target_team":103,"type":"correctness","commands":[
+  {"program":"stor","args":["-u","alice","-k","pass","register"]},
+  {"program":"stor","args":["-u","alice","-f","","create"]}
+],"expected":[{"exit":0},{"exit":255}]}
