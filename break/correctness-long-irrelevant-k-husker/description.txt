@@ -1,0 +1,13 @@
+Bug: create rejects a long -k argument even though create ignores -k entirely.
+
+Root cause: stor.c validates ALL provided flags globally before checking the action:
+    if (key && strlen(key) >= MAX_NAME) return invalid();
+This fires for create even though create never reads the `key` variable.
+
+A 256-char -k value (strlen=256 >= MAX_NAME=256) causes exit 255.
+The oracle does not validate -k for actions that do not use it, so create
+with a long -k value succeeds (exit 0).
+
+Trigger: ./stor -u alice -k "k"*256 -f file1 create  (after registering alice)
+Expected (oracle): exit 0
+Observed: stdout="invalid", exit 255

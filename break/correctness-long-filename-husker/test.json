@@ -10,5 +10,6 @@
       "program": "stor",
       "args": ["-u", "alice", "-f", "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", "create"]
     }
-  ]
+  ],
+  "expected": [{"exit": 0}, {"exit": 0}]
 }

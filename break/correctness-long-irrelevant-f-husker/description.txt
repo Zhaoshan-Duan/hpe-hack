@@ -1,0 +1,13 @@
+Bug: register rejects a long -f argument even though register ignores -f entirely.
+
+Root cause: stor.c validates ALL provided flags globally before checking the action:
+    if (file && strlen(file) >= MAX_NAME) return invalid();
+This fires for register even though register never reads the `file` variable.
+
+A 256-char -f value (strlen=256 >= MAX_NAME=256) causes exit 255.
+The oracle does not validate -f for actions that do not use it, so register
+with a long -f value succeeds (exit 0).
+
+Trigger: ./stor -u alice -k secret -f "f"*256 register
+Expected (oracle): exit 0
+Observed: stdout="invalid", exit 255
