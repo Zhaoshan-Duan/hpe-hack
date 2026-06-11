@@ -1,7 +1,11 @@
-Bug: re-registering an existing user succeeds instead of failing.
+Bug: re-registering an existing user exits 255 instead of 0.
 
-Spec: register on an already-registered username must print "invalid" to stdout
-and exit 255.
+Spec/oracle: register is idempotent — calling register a second time for the
+same username must exit 0 (no-op).
+Root cause: stor.c:524 — op_register() calls find_user() and returns -1 if
+the user already exists, causing the binary to die("register failed") with exit 255.
+Oracle has no such guard; it treats duplicate registration as a no-op.
 
-Trigger: register alice, then register alice again with the same key.
-Second command must exit 255 and print "invalid".
+Trigger: register alice with key "secret", then register alice again.
+Expected (oracle): exit 0 for both calls.
+Actual (bug): exit 0 then exit 255.
