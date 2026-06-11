@@ -1,0 +1,8 @@
+{
+  "target_team": 105,
+  "type": "crash",
+  "commands": [
+    {"program": "stor", "args": ["-u", "ghost", "-f", "f1", "create"]},
+    {"program": "stor", "args": ["-u", "ghost", "-k", "anykey", "-f", "f1", "write", "data"]}
+  ]
+}

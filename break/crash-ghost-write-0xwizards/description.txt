@@ -1,0 +1,14 @@
+Crash via NULL user pointer dereference when writing to a file owned by a non-existent user.
+
+The grader's cmd.c is missing the find_user existence check in create (confirmed valid break:
+correctness-create-no-user-0xwizards). If cmd.c's write command also lacks the user-existence
+check, it calls find_user("ghost") which returns NULL, then passes that NULL User* into the
+key-verification call (crypto_pwhash_str_verify(NULL->verifier, ...)) causing SIGSEGV.
+
+Sequence:
+  1. create -u ghost -f f1  →  succeeds in grader (no user check), creates file record for ghost
+  2. write -u ghost -k anykey -f f1 "data"  →  find_user("ghost") = NULL; if NULL not checked
+     before dereferencing verifier field → SIGSEGV
+
+If write does check for NULL user (returns 255 gracefully) this will not score as crash,
+but the sequence still probes whether cmd.c is consistently missing the check.

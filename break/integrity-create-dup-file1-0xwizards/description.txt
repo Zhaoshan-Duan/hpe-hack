@@ -1,0 +1,19 @@
+Integrity break by corrupting enc.db with a duplicate file1 record for user1.
+
+Root cause: the grader's cmd.c is missing the find_user existence check in create
+(confirmed valid break). If cmd.c's create ALSO lacks the duplicate-file guard
+(find_file check), then calling create user1/file1 on the provided enc.db — where
+user1 and file1 both already exist — inserts a second empty file1 record for user1.
+
+The resulting enc.db has two (user1, file1) records. When the grader subsequently
+loads the database to verify integrity (reading user1/file1 with the real key),
+db_parse runs its duplicate-record detection and rejects the database as tampered.
+The read command exits 255 with stdout "invalid", which differs from the original
+INTEGRITY_FLAG content → valid integrity break.
+
+This requires cmd.c to be missing BOTH checks:
+  1. find_user check (confirmed missing from correctness-create-no-user break)
+  2. find_file duplicate check (unconfirmed — this test probes it)
+
+If the file-dup check is still present (create is a no-op for existing file), the
+enc.db is unchanged and the grader's read returns the original content → no break.

@@ -1,0 +1,12 @@
+Crash via NULL user pointer dereference when reading a file owned by a non-existent user.
+
+Same root cause as crash-ghost-write: the grader's cmd.c is missing the find_user existence
+check in create. If read in cmd.c is also missing the user check, find_user("ghost") returns
+NULL and the subsequent dereference of NULL->verifier for key verification causes SIGSEGV.
+
+Sequence:
+  1. create -u ghost -f f1  →  succeeds (no user check in grader cmd.c, confirmed)
+  2. read -u ghost -k anykey -f f1  →  find_user("ghost") = NULL; if not checked before
+     crypto_pwhash_str_verify(NULL->verifier, ...) → SIGSEGV
+
+This is the read-path equivalent of crash-ghost-write-0xwizards.

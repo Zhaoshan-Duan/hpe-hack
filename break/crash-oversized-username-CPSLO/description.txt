@@ -1,10 +1,13 @@
-Bug: fixed-size stack buffer for username overflowed by a 10000-char -u argument.
+NOT APPLICABLE to CPSLO (team 108).
 
-Many implementations copy the username from argv into a stack-allocated buffer
-(e.g. char user[256]; strcpy(user, argv[...])). With -fno-stack-protector the
-saved return address is overwritten, causing a segfault or worse.
+CPSLO's stor.c checks strlen(user) >= MAX_NAME (256) and calls ERROR_OUT before
+any buffer is touched. There is no stack-allocated username buffer in the
+register path -- the username is stored in a heap-allocated User struct via
+strcpy(db.users[N].username, user), bounded by the above length check.
 
-Trigger: single register command with a 10000-char username.
-Expected (spec): exit 255 / "invalid" (implementation should reject or safely
-  truncate, not crash).
-Observed (bug): SIGSEGV / SIGABRT.
+A 255-character username passes the length check and fits exactly in
+char username[256] with its null terminator. No overflow occurs.
+
+This attack class applies to teams that use a fixed-size stack buffer for
+user input without a prior bounds check (e.g. char buf[256]; strcpy(buf, user)).
+CPSLO is not in that class.

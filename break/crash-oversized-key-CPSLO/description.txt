@@ -1,10 +1,10 @@
-Bug: fixed-size stack buffer for the -k (key/password) argument overflowed.
+NOT APPLICABLE to CPSLO (team 108).
 
-Same class as oversized-username but targets the key path, which may pass
-through a different stack frame (e.g. a KDF wrapper that copies the password
-into a local buffer before hashing).
+For register: stor.c checks strlen(key) >= MAX_NAME (256) before use.
+For write/read: the key is NOT length-checked but is passed directly to
+PKCS5_PBKDF2_HMAC(key, strlen(key), ...) which handles arbitrary-length keys
+without copying to any stack buffer. No overflow occurs.
 
-Trigger: register with a 10000-char key.
-Expected (spec): graceful exit 255 or successful registration (key is just
-  passed to Argon2id as a byte string -- any length should be fine).
-Observed (bug): SIGSEGV / SIGABRT.
+There is no fixed-size stack buffer for the key argument in any code path.
+This attack class requires teams that memcpy or strcpy the password into a
+local char buf[N] before hashing. CPSLO does not do this.

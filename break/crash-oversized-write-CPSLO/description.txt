@@ -1,13 +1,17 @@
-Bug: fixed-size stack buffer for write content overflowed via stdin.
+NOT APPLICABLE to CPSLO (team 108) via stdin.
 
-The problem statement example payload ("AAAA...BBBB" via stdin to write) directly
-suggests that some implementations read stdin into a stack-allocated buffer.
-With -fno-stack-protector and execstack this allows return-address overwrite.
+CPSLO's stor.c does not read write content from stdin. Content comes from:
+  (a) positional argv[optind+1]  -- allocated with malloc(strlen(content))
+  (b) -i infile                  -- allocated with malloc(file_size)
 
-This test sends 64 KB of A's. If it produces SIGSEGV it scores as crash (50 pts).
-If the return address can be aimed at win(), it scores as security (100 pts) --
-see crash-win-via-write for the targeted variant once we have the binary.
+Both paths use heap allocation (no fixed stack buffer). Passing 64 KB
+as a positional argument results in malloc(65536) on the heap, which succeeds
+without any memory corruption.
 
-Trigger: register user, create file, write 64 KB stdin payload.
-Expected (spec): exit 0 (content written successfully; no size limit in spec).
-Observed (bug): SIGSEGV / SIGABRT.
+The stdin-based overflow attack applies to teams that do something like:
+  char buf[BIG]; fgets(buf, sizeof(buf), stdin);
+and then overflow it. CPSLO has no such path.
+
+A large positional argument test is kept in the commands array as a
+harmless sanity check, but it will not produce SIGSEGV or SIGABRT against
+CPSLO's binary.
