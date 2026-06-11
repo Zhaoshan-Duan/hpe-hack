@@ -1,0 +1,12 @@
+Target: UW_Tacoma (team 114)
+Bug: register accepts blank -k (empty key)
+
+cmd_register checks strlen(username) == 0 but has no corresponding check
+for strlen(key) == 0. The spec requires exit 255 when -k is missing or blank.
+
+Actual behavior: exits 0 (user is registered with empty password).
+Expected behavior: exits 255.
+
+Source reference: stor.c cmd_register():
+  if (!username || !key || strlen(username) == 0) die_invalid();
+  // missing: if (strlen(key) == 0) die_invalid();

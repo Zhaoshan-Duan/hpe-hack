@@ -1,0 +1,11 @@
+Bug: register rejects a 256-character key that the spec permits.
+
+stor.c defines MAX_NAME=256 and checks strlen(key) >= MAX_NAME.
+A 256-char key has strlen=256 which is >= 256, so it returns "invalid"
+exit 255.
+
+The oracle accepts keys of any length (exit 0).
+
+Trigger: ./stor -u alice -k "k"*256 register
+Expected (oracle): exit 0
+Observed: stdout="invalid", exit 255

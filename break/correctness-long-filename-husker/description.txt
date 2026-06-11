@@ -1,0 +1,11 @@
+Bug: create rejects a 256-character filename that the spec permits.
+
+stor.c defines MAX_NAME=256 and checks strlen(file) >= MAX_NAME.
+A 256-char filename has strlen=256 which is >= 256, so it returns "invalid"
+exit 255.
+
+The oracle accepts filenames of any length (exit 0).
+
+Trigger: ./stor -u alice -f "f"*256 create  (after registering alice)
+Expected (oracle): exit 0
+Observed: stdout="invalid", exit 255
