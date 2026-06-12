@@ -1,0 +1,22 @@
+{
+  "target_team": 106,
+  "type": "correctness",
+  "commands": [
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "nobody",
+        "-f",
+        "f",
+        "create"
+      ]
+    }
+  ],
+  "expected": [
+    {
+      "exit": 255,
+      "stdout": "invalid\n"
+    }
+  ]
+}

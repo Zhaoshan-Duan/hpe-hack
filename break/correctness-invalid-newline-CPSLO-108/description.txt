@@ -1,0 +1,8 @@
+Bug: invalid() prints "invalid" without trailing newline.
+
+CPSLO-108 uses printf("invalid") which omits the newline.
+The oracle uses puts("invalid") which adds a newline.
+
+Trigger: any invalid operation (e.g. create without register).
+Expected stdout: "invalid\n"
+Actual stdout: "invalid" (no newline)

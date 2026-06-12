@@ -1,0 +1,9 @@
+Bug: invalid() prints "invalid" without trailing newline.
+
+SMK-112 uses printf("invalid") without newline.
+The oracle uses puts("invalid") which adds a newline.
+
+Trigger: any invalid operation (e.g. create without register).
+Expected stdout: "invalid
+"
+Actual stdout: "invalid" (no newline)
