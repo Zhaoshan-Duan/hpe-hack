@@ -1,0 +1,11 @@
+Bug: create rejects a 4097-character filename that the spec permits.
+
+0xwizards defines MAX_NAME=4096 and checks flen > MAX_NAME. A 4097-char
+filename has flen=4097 > 4096, so the binary calls die_invalid() and exits 255.
+
+The oracle (reference implementation) accepts filenames of arbitrary length
+(exits 0 for 10000-char filenames).
+
+Trigger: register alice, then ./stor -u alice -f "A"*4097 create
+Expected (oracle): exit 0 on both commands
+Actual (bug): second command exits 255
