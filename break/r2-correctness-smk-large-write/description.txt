@@ -1,0 +1,9 @@
+Bug: write rejects content larger than MAX_PAYLOAD_LEN (4096 bytes).
+
+SMK defines MAX_PAYLOAD_LEN=4096 and checks plaintext_len > MAX_PAYLOAD_LEN.
+A 4097-byte inline write exits 255 ("invalid"). Oracle accepts content of
+arbitrary size (exits 0).
+
+Trigger: register, create, then write with 4097-char inline text.
+Expected (oracle): exit 0
+Actual (bug): stdout="invalid", exit 255
