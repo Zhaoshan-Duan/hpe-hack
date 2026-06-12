@@ -1,0 +1,14 @@
+Bug: error output is "invalid" (7 bytes, no newline) instead of "invalid\n" (8 bytes).
+
+The oracle uses puts("invalid") which appends a trailing newline. 0xwizards uses
+fputs("invalid", stdout) which does not. On any error path the stdout content
+differs by one byte.
+
+Confirmed locally: ./stor -u nobody -f f create | wc -c → 7
+
+Trigger: register alice, then read a file that was never created.
+Both oracle and target exit 255, but:
+  oracle stdout: "invalid\n"  (8 bytes)
+  target stdout: "invalid"    (7 bytes, no newline)
+
+The expected field matches oracle output; target deviates by the missing newline.
