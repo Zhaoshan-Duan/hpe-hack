@@ -1,0 +1,14 @@
+CPSLO-108 Correctness Break: empty filename accepted through full write/read cycle
+
+CPSLO's stor.c does not validate that -f is non-empty. The oracle (stor-old.c)
+rejects any empty filename with exit 255.
+
+Sequence:
+1. register alice (short user/key)  -- CPSLO:0, oracle:0
+2. create -f ""                      -- CPSLO:0 (accepts empty filename), oracle:255
+3. write  -f "" hello                -- CPSLO:0, oracle:255
+4. read   -f ""                      -- CPSLO:0, oracle:255
+
+Root cause: stor.c create check (line 354): if (!file) ERROR_OUT() -- only
+rejects NULL, not empty string. strlen("") = 0 < MAX_NAME (256), so the
+length check also passes. The oracle rejects empty filename: if (strlen(file) == 0).

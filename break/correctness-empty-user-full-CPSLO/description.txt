@@ -1,0 +1,14 @@
+CPSLO-108 Correctness Break: empty username accepted through full write/read cycle
+
+CPSLO's stor.c does not validate that -u is non-empty. The oracle (stor-old.c)
+rejects any empty username with exit 255.
+
+Sequence:
+1. register -u "" -k pass -- CPSLO:0 (accepts empty username), oracle:255
+2. create  -u "" -f f     -- CPSLO:0, oracle:255
+3. write   -u "" -k pass  -- CPSLO:0, oracle:255
+4. read    -u "" -k pass  -- CPSLO:0, oracle:255
+
+Root cause: stor.c main() check: if (!user) ERROR_OUT() -- only rejects NULL,
+not empty string. strlen("") = 0 < MAX_NAME (256), so the length check also
+passes. The oracle rejects empty username globally: if (strlen(user) == 0) ...

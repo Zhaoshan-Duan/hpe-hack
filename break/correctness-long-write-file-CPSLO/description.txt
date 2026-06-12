@@ -1,0 +1,12 @@
+CPSLO-108 Correctness Break: long filename (256 chars) on create+write rejected
+
+CPSLO defines MAX_NAME=256 and rejects filename arguments >= 256 characters.
+The oracle accepts filenames up to MAX_STR_LEN=4096 characters.
+
+Sequence:
+1. register (short username, short key) -- oracle:0, CPSLO:0
+2. create with -f "A"*256 -- oracle:0 (accepts), CPSLO:255 (MAX_NAME check)
+3. write with -f "A"*256 -- oracle:0, CPSLO:255
+
+Root cause: stor.c line 354: strlen(file) >= MAX_NAME (256) rejects exactly-256
+or longer filenames in both create and write. The oracle has no such restriction.

@@ -1,0 +1,14 @@
+CPSLO-108 Correctness Break: long username (256 chars) on register+write+read rejected
+
+CPSLO defines MAX_NAME=256 and rejects username arguments >= 256 characters.
+The oracle accepts usernames up to MAX_STR_LEN=4096 characters.
+
+Sequence:
+1. register -u "A"*256 -- oracle:0 (accepts), CPSLO:255 (MAX_NAME check)
+2. create -u "A"*256 -- oracle:0, CPSLO:255
+3. write -u "A"*256 -- oracle:0, CPSLO:255
+4. read -u "A"*256 -- oracle:0, CPSLO:255
+
+Root cause: stor.c line 331: strlen(user) >= MAX_NAME (256) rejects 256+ char
+usernames at register. All subsequent operations with that username also fail
+in CPSLO because the user was never registered, while the oracle succeeds.

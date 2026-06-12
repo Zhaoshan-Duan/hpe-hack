@@ -1,0 +1,14 @@
+CPSLO-108 Correctness Break: empty key accepted through full write/read cycle
+
+CPSLO's stor.c does not validate that -k is non-empty. The oracle (stor-old.c)
+rejects any empty key with exit 255.
+
+Sequence:
+1. register -u alice -k "" -- CPSLO:0 (accepts empty key), oracle:255
+2. create -u alice -f f   -- CPSLO:0, oracle:255 (alice never registered)
+3. write -k ""            -- CPSLO:0, oracle:255
+4. read  -k ""            -- CPSLO:0, oracle:255
+
+Root cause: stor.c register check (line 331): strlen(key) >= MAX_NAME.
+strlen("") = 0, 0 >= 256 is FALSE, so empty key passes. The oracle's main()
+rejects empty key before dispatch: if (strlen(key) == 0) return invalid().
