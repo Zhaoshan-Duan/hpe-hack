@@ -1,0 +1,437 @@
+{
+  "target_team": 112,
+  "type": "correctness",
+  "commands": [
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user0",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user1",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user2",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user3",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user4",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user5",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user6",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user7",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user8",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user9",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user10",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user11",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user12",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user13",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user14",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user15",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user16",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user17",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user18",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user19",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user20",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user21",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user22",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user23",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user24",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user25",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user26",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user27",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user28",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user29",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user30",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user31",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "user32",
+        "-k",
+        "pass",
+        "register"
+      ]
+    }
+  ],
+  "expected": [
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

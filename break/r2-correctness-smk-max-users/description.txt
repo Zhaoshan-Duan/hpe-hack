@@ -1,0 +1,8 @@
+Bug: register fails after 32 users (MAX_USERS=32).
+
+SMK defines MAX_USERS=32 and rejects register when the database already has
+32 users. The oracle allows unlimited users.
+
+Trigger: register user0..user31 (32 users), then register user32.
+Expected (oracle): all exits 0 including the 33rd register
+Actual (bug): 33rd register (cmd 33) exits 255 ("invalid")

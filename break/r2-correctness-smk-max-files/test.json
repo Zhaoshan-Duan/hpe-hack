@@ -1,0 +1,450 @@
+{
+  "target_team": 112,
+  "type": "correctness",
+  "commands": [
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-k",
+        "pass",
+        "register"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file0",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file1",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file2",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file3",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file4",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file5",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file6",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file7",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file8",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file9",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file10",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file11",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file12",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file13",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file14",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file15",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file16",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file17",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file18",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file19",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file20",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file21",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file22",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file23",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file24",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file25",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file26",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file27",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file28",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file29",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file30",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file31",
+        "create"
+      ]
+    },
+    {
+      "program": "stor",
+      "args": [
+        "-u",
+        "alice",
+        "-f",
+        "file32",
+        "create"
+      ]
+    }
+  ],
+  "expected": [
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    },
+    {
+      "exit": 0
+    }
+  ]
+}

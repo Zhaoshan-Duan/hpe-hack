@@ -1,0 +1,8 @@
+Bug: create fails after 32 files for the same user (MAX_FILES_PER_USER=32).
+
+SMK defines MAX_FILES_PER_USER=32 and rejects create when the user already
+has 32 files. The oracle allows unlimited files per user.
+
+Trigger: register alice, then create file0..file31 (32 files), then file32.
+Expected (oracle): all exits 0 including the 33rd create
+Actual (bug): 33rd create (cmd 33) exits 255 ("invalid")
