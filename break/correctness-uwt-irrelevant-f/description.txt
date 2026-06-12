@@ -1,0 +1,13 @@
+Target: UW_Tacoma (team 114)
+Bug: main() validates -f length for ALL commands, including register which never uses -f
+
+UW_Tacoma's main() unconditionally checks:
+  if (opt_f && strlen(opt_f) > MAX_FILENAME) die_invalid();
+
+before dispatching to any command. The register command takes only -u and -k; -f is
+ignored. The oracle silently accepts the irrelevant oversized -f and succeeds.
+UW_Tacoma exits 255 instead of 0.
+
+Source: stor.c main() arg-validation block (lines 677-678):
+  if (opt_u && strlen(opt_u) > MAX_USERNAME) die_invalid();
+  if (opt_f && strlen(opt_f) > MAX_FILENAME) die_invalid();   // fires for register too
