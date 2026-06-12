@@ -1,0 +1,8 @@
+Bug: register fails after 256 users (MAX_USERS=256).
+
+Husker_Bots defines MAX_USERS=256 in the DB struct. When num_users >= MAX_USERS,
+register returns invalid() and exits 255. The oracle allows unlimited users.
+
+Trigger: register u0..u255 (256 users), then register u256 (257th).
+Expected (oracle): all exits 0 including the 257th register
+Actual (bug): 257th register (cmd 257) exits 255 ("invalid")
