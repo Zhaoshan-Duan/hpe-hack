@@ -1,9 +1,14 @@
-Integrity attack against user1/file1.
+Integrity attack against UW_Tacoma-114 (team 114) via read -o enc.db truncation.
 
-Goal: modify user1/file1 content without knowing the key so that
-re-reading it with the real key returns different content.
+Root cause: the read command's -o flag opens the output file with fopen("enc.db", "wb"),
+which truncates enc.db to 0 bytes when reading a file with no encrypted content
+(enc_len=0, i.e., a file that was created but never written to).
 
-TODO: analyse target's enc.db format for lack of authentication
-(e.g., unauthenticated CBC, missing MAC, plaintext storage).
-Commands must leave the store in a state where the grader's
-re-read of user1/file1 with the real key returns changed content.
+Attack chain:
+1. Register attacker account (key "x").
+2. Create file "p" for attacker -- content stays empty (enc_len=0, no write done).
+3. Read "p" with -o enc.db: implementation opens enc.db in write mode, truncating it.
+
+After this chain, enc.db is 0 bytes. Any subsequent stor command reloads the db,
+finds it too small to parse, and returns invalid (exit 255). The grader's
+verification read of user1/file1 with the real key fails -- integrity break.
