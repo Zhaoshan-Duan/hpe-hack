@@ -1,7 +1,0 @@
-Bug: re-registering an existing user succeeds instead of failing.
-
-Spec: register on an already-registered username must print "invalid" to stdout
-and exit 255.
-
-Trigger: register alice, then register alice again with the same key.
-Second command must exit 255 and print "invalid".

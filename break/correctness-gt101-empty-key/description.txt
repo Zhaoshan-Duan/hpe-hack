@@ -1,8 +1,0 @@
-Bug: register with an empty key (-k "") exits 0 instead of 255.
-
-Spec: empty key must print 'invalid' and exit 255.
-Root cause: stor.c:357 — do_register checks strlen(username)==0 but has no check for strlen(key)==0. PBKDF2 happily derives keys from an empty password.
-
-Trigger: register with username "alice" and empty key "".
-Expected (oracle): exits 255.
-Actual (bug): exits 0.
