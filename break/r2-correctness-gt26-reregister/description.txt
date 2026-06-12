@@ -1,0 +1,9 @@
+Bug: re-registering an existing user exits 255 instead of 0.
+
+Spec/oracle: re-registration must be allowed (exit 0), updating the user's key.
+Root cause: stor.c:517 — do_register calls find_user and unconditionally fails
+if the user already exists: `if (find_user(&db, user)) { free_db(&db); fail(); }`
+
+Trigger: register alice with pass1 (succeeds), then register alice with pass2.
+Expected (oracle): both commands exit 0.
+Actual (bug): second register exits 255.
