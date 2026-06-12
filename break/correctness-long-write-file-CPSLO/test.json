@@ -35,5 +35,6 @@
       ],
       "stdin": "x"
     }
-  ]
+  ],
+  "expected": [{"exit": 0}, {"exit": 0}, {"exit": 0}]
 }
