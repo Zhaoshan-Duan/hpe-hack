@@ -1,0 +1,8 @@
+Bug: register with an empty key exits 255 instead of 0.
+
+Root cause: stor.c:853 — main() calls die("empty key") when a.key is set and strlen(a.key)==0.
+Oracle has no such guard and treats empty key as valid.
+
+Trigger: stor -u alice -k "" register
+Expected (oracle): exit 0
+Actual (bug): exit 255

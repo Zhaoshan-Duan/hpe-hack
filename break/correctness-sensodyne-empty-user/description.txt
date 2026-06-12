@@ -1,0 +1,8 @@
+Bug: register with an empty username exits 255 instead of 0.
+
+Root cause: stor.c:849 — main() calls die("empty username") when strlen(username)==0,
+before any operation runs. Oracle has no such guard and treats empty username as valid.
+
+Trigger: stor -u "" -k pass register
+Expected (oracle): exit 0
+Actual (bug): exit 255

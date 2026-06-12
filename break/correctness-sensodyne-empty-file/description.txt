@@ -1,0 +1,8 @@
+Bug: create with an empty filename exits 255 instead of 0.
+
+Root cause: stor.c:851 — main() calls die("empty filename") when a.filename is set and strlen(a.filename)==0.
+Oracle has no such guard and treats empty filename as valid.
+
+Trigger: register alice, then stor -u alice -f "" create
+Expected (oracle): exit 0, exit 0
+Actual (bug): exit 0, exit 255
